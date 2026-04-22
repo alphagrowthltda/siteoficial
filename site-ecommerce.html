@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VIKT — Suplementos de Performance Premium</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css" />
+  <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-solid-rounded/css/uicons-solid-rounded.css" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#08090a;--bg2:#111315;--bg3:#1a1c1f;
+      --txt:#d4d8dc;--muted:#666d75;--white:#fff;
+      --border:rgba(255,255,255,.07);
+      --red:#ef4444;--red2:#f87171;
+      --acc:#e2ff4f;--acc2:#d4f02b;
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--txt);font-family:'DM Sans',sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden}
+    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#333}
+    a{text-decoration:none}
+
+    /* TOP BAR */
+    .topbar{background:var(--acc);color:#000;text-align:center;padding:9px 16px;font-size:12px;font-weight:600;letter-spacing:.04em}
+    .topbar a{color:#000;text-decoration:underline;font-weight:700}
+
+    /* NAV */
+    nav{background:rgba(8,9,10,.95);backdrop-filter:blur(24px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100}
+    .nav-in{max-width:1280px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 24px}
+    .brand{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:.12em;color:var(--white)}
+    .brand em{color:var(--acc)}
+    .nav-center{display:flex;gap:28px;list-style:none}
+    .nav-center a{font-size:13px;font-weight:500;color:var(--muted);letter-spacing:.02em;transition:color .2s}
+    .nav-center a:hover{color:var(--white)}
+    .nav-right{display:flex;align-items:center;gap:16px}
+    .nav-icon{width:36px;height:36px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:18px;border:1px solid var(--border);border-radius:50%;transition:all .2s;cursor:pointer}
+    .nav-icon:hover{border-color:rgba(255,255,255,.2);color:var(--white)}
+    .cart-btn{background:var(--white);color:#000;font-size:12px;font-weight:700;letter-spacing:.06em;padding:9px 20px;border-radius:100px;display:flex;align-items:center;gap:7px;cursor:pointer;transition:all .2s}
+    .cart-btn:hover{background:var(--acc);transform:scale(1.03)}
+    .cart-count{background:#000;color:var(--white);width:18px;height:18px;border-radius:50%;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+
+    /* HERO */
+    .hero{min-height:92vh;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+    .hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 60px 80px 80px;position:relative;z-index:1}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:6px 14px;border-radius:100px;margin-bottom:28px;width:fit-content}
+    .hero-badge span{width:6px;height:6px;border-radius:50%;background:var(--acc)}
+    .hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(72px,8vw,112px);line-height:.92;letter-spacing:.04em;color:var(--white);margin-bottom:8px}
+    .hero-title .line2{color:var(--acc);display:block}
+    .hero-subtitle{font-size:15px;color:var(--muted);line-height:1.7;max-width:420px;margin-bottom:36px}
+    .hero-subtitle strong{color:var(--txt)}
+
+    .hero-product-info{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:32px}
+    .pi-chip{background:var(--bg3);border:1px solid var(--border);color:var(--muted);font-size:11px;font-weight:600;letter-spacing:.06em;padding:5px 12px;border-radius:100px;display:flex;align-items:center;gap:5px}
+    .pi-chip i{color:var(--acc);font-size:12px}
+
+    .hero-actions{display:flex;gap:12px;align-items:center}
+    .btn-buy{background:var(--acc);color:#000;font-weight:700;font-size:14px;letter-spacing:.04em;padding:14px 32px;border-radius:100px;display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none;transition:all .3s}
+    .btn-buy:hover{background:var(--acc2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(226,255,79,.2)}
+    .btn-buy i{font-size:16px}
+    .btn-view{color:var(--muted);font-size:13px;font-weight:500;display:flex;align-items:center;gap:6px;cursor:pointer;border:none;background:none;transition:color .2s}
+    .btn-view:hover{color:var(--white)}
+    .btn-view i{font-size:14px;transition:transform .2s}
+    .btn-view:hover i{transform:translateX(3px)}
+
+    .hero-trust{display:flex;gap:20px;margin-top:36px;flex-wrap:wrap}
+    .trust-item{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted)}
+    .trust-item i{font-size:14px;color:var(--acc)}
+
+    .hero-right{position:relative;background:var(--bg2);overflow:hidden;display:flex;align-items:center;justify-content:center}
+    .hero-bg-text{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:200px;letter-spacing:.15em;color:rgba(226,255,79,.04);white-space:nowrap;user-select:none;top:50%;transform:translateY(-50%)}
+    .hero-product-visual{position:relative;z-index:1;text-align:center;padding:40px}
+    .product-can{width:180px;height:280px;background:linear-gradient(160deg,#1a1c1f,#0d0e10);border-radius:16px;margin:0 auto;position:relative;overflow:hidden;box-shadow:0 20px 80px rgba(0,0,0,.6),0 0 0 1px rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:flex-start;padding-top:24px}
+    .product-can::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--acc),transparent)}
+    .product-can::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:linear-gradient(160deg,rgba(226,255,79,.06) 0%,transparent 60%)}
+    .can-brand{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.12em;color:var(--white);position:relative;z-index:1}
+    .can-brand em{color:var(--acc);font-style:normal}
+    .can-product-name{font-size:9px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);margin-top:2px;position:relative;z-index:1}
+    .can-line{width:60%;height:1px;background:rgba(226,255,79,.2);margin:12px auto;position:relative;z-index:1}
+    .can-flavor{font-family:'Bebas Neue',sans-serif;font-size:22px;color:var(--acc);letter-spacing:.08em;position:relative;z-index:1}
+    .can-serving{font-size:10px;color:var(--muted);letter-spacing:.08em;margin-top:4px;position:relative;z-index:1}
+    .can-badge-bottom{position:absolute;bottom:16px;background:var(--acc);color:#000;font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.1em;padding:4px 12px;border-radius:100px;z-index:2}
+
+    .product-meta{margin-top:20px}
+    .product-price{font-family:'Bebas Neue',sans-serif;font-size:42px;color:var(--white);letter-spacing:.04em;line-height:1}
+    .product-price sub{font-size:.5em;vertical-align:middle;margin-right:2px}
+    .product-from{font-size:12px;color:var(--muted);text-decoration:line-through}
+    .product-stars{color:#fbbf24;font-size:13px;margin-top:4px}
+    .product-reviews{font-size:11px;color:var(--muted);margin-left:4px}
+
+    .hero-card-float{position:absolute;bottom:32px;left:32px;background:rgba(8,9,10,.9);backdrop-filter:blur(12px);border:1px solid var(--border);border-radius:10px;padding:14px 18px;z-index:10;max-width:180px}
+    .hcf-label{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+    .hcf-val{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--acc);line-height:1}
+    .hcf-sub{font-size:10px;color:var(--muted);margin-top:2px}
+
+    /* FEATURES BAR */
+    .feat-bar{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:24px;overflow:hidden}
+    .feat-track{display:flex;gap:48px;width:max-content;animation:slide 20s linear infinite}
+    @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+    .feat-item{display:flex;align-items:center;gap:10px;white-space:nowrap;font-size:13px;font-weight:600;color:var(--muted)}
+    .feat-item i{color:var(--acc);font-size:16px}
+
+    /* PRODUCTS */
+    .products{padding:80px 24px;max-width:1280px;margin:0 auto}
+    .section-tag{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--acc);border:1px solid rgba(226,255,79,.15);background:rgba(226,255,79,.04);padding:5px 12px;border-radius:2px;margin-bottom:14px}
+    .section-tag i{font-size:12px}
+    .section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(36px,5vw,60px);letter-spacing:.04em;color:var(--white);margin-bottom:4px}
+    .section-sub{font-size:14px;color:var(--muted);margin-bottom:44px}
+
+    .filter-tabs{display:flex;gap:4px;margin-bottom:32px;overflow-x:auto;scrollbar-width:none}
+    .filter-tabs::-webkit-scrollbar{display:none}
+    .ftab{background:none;border:1px solid var(--border);color:var(--muted);font-size:12px;font-weight:600;letter-spacing:.06em;padding:8px 18px;border-radius:100px;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .ftab.active,.ftab:hover{background:var(--white);color:#000;border-color:var(--white)}
+
+    .prod-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .prod-card{border:1px solid var(--border);background:var(--bg2);border-radius:10px;overflow:hidden;transition:all .3s;cursor:pointer;position:relative}
+    .prod-card:hover{border-color:rgba(255,255,255,.15);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,.4)}
+    .prod-thumb{aspect-ratio:3/3.5;background:var(--bg3);position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+    .prod-thumb::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 60%,rgba(17,19,21,.8) 100%)}
+    .mini-can{width:64px;height:100px;border-radius:8px;background:linear-gradient(160deg,#1a1c1f,#0d0e10);border:1px solid rgba(255,255,255,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative}
+    .mini-can::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px 2px 0 0}
+    .mini-can-brand{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:.1em;color:var(--white)}
+    .mini-can-flavor{font-size:7px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}
+    .prod-badge{position:absolute;top:12px;left:12px;font-size:9px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:2px;z-index:2}
+    .badge-new{background:var(--acc);color:#000}
+    .badge-hot{background:var(--red);color:var(--white)}
+    .badge-sale{background:var(--white);color:#000}
+    .prod-info{padding:16px}
+    .prod-category{font-size:9px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:5px}
+    .prod-name{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.04em;color:var(--white);margin-bottom:4px}
+    .prod-flavor-row{display:flex;gap:4px;margin-bottom:10px}
+    .flavor-dot{width:10px;height:10px;border-radius:50%;border:1.5px solid transparent;cursor:pointer;transition:transform .2s}
+    .flavor-dot:hover{transform:scale(1.3)}
+    .prod-price-row{display:flex;align-items:center;justify-content:space-between}
+    .prod-price{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:var(--white)}
+    .prod-old-price{font-size:11px;color:var(--muted);text-decoration:line-through;margin-left:4px}
+    .add-btn{width:32px;height:32px;border-radius:50%;background:var(--white);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;color:#000;transition:all .2s;font-weight:700}
+    .add-btn:hover{background:var(--acc);transform:scale(1.1)}
+    .prod-stars{font-size:11px;color:#fbbf24;margin-bottom:8px}
+    .prod-stars span{color:var(--muted);font-size:10px;margin-left:3px}
+
+    /* FEATURED PRODUCT */
+    .featured-product{padding:80px 24px;background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .fp-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .fp-visual{position:relative}
+    .fp-product-box{background:var(--bg3);border:1px solid var(--border);border-radius:16px;padding:48px;text-align:center;position:relative;overflow:hidden}
+    .fp-product-box::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 30% 40%,rgba(226,255,79,.05) 0%,transparent 60%)}
+    .fp-can-big{width:140px;height:220px;background:linear-gradient(160deg,#222426,#0d0e10);border-radius:14px;margin:0 auto;border:1px solid rgba(255,255,255,.08);box-shadow:0 20px 60px rgba(0,0,0,.5),0 0 0 1px rgba(226,255,79,.06);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative}
+    .fp-can-big::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--acc),transparent)}
+    .fp-brand{font-family:'Bebas Neue',sans-serif;font-size:32px;letter-spacing:.12em;color:var(--white)}
+    .fp-brand em{color:var(--acc);font-style:normal}
+    .fp-product-name-can{font-size:8px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .fp-line{width:60%;height:1px;background:rgba(226,255,79,.2)}
+    .fp-flavor-big{font-family:'Bebas Neue',sans-serif;font-size:18px;color:var(--acc);letter-spacing:.1em}
+    .fp-float-stat{position:absolute;background:rgba(8,9,10,.9);backdrop-filter:blur(10px);border:1px solid var(--border);border-radius:8px;padding:12px 16px}
+    .fps-num{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--acc);line-height:1}
+    .fps-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+
+    .fp-info .section-tag{margin-bottom:16px}
+    .fp-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(40px,5vw,64px);letter-spacing:.03em;color:var(--white);line-height:.95;margin-bottom:16px}
+    .fp-title em{color:var(--acc);font-style:normal;display:block}
+    .fp-desc{font-size:15px;color:var(--muted);line-height:1.75;margin-bottom:24px}
+
+    .fp-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);margin-bottom:28px;border-radius:6px;overflow:hidden}
+    .fp-fact{background:var(--bg3);padding:16px;text-align:center}
+    .fp-fact-num{font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--white);line-height:1}
+    .fp-fact-label{font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:3px}
+
+    .fp-flavors{margin-bottom:24px}
+    .fp-fl-label{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px}
+    .fp-fl-row{display:flex;gap:8px;flex-wrap:wrap}
+    .fp-fl{padding:6px 14px;border-radius:100px;border:1px solid var(--border);font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s}
+    .fp-fl.active,.fp-fl:hover{border-color:var(--acc);color:var(--acc);background:rgba(226,255,79,.06)}
+
+    .fp-price-row{display:flex;align-items:center;gap:16px;margin-bottom:16px}
+    .fp-price{font-family:'Bebas Neue',sans-serif;font-size:52px;color:var(--white);letter-spacing:.03em;line-height:1}
+    .fp-price-detail{display:flex;flex-direction:column}
+    .fp-installment{font-size:12px;color:var(--muted)}
+    .fp-savings{font-size:12px;color:var(--acc);font-weight:600}
+
+    .fp-add-btn{display:flex;align-items:center;gap:10px;background:var(--acc);color:#000;font-weight:700;font-size:15px;padding:15px 32px;border-radius:100px;border:none;cursor:pointer;transition:all .3s;width:fit-content}
+    .fp-add-btn:hover{background:var(--acc2);transform:translateY(-2px);box-shadow:0 8px 32px rgba(226,255,79,.25)}
+    .fp-add-btn i{font-size:18px}
+
+    /* CATEGORIES */
+    .categories{padding:80px 24px;max-width:1280px;margin:0 auto}
+    .cat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+    .cat-card{border:1px solid var(--border);background:var(--bg2);border-radius:10px;padding:36px;position:relative;overflow:hidden;cursor:pointer;transition:all .3s;display:flex;flex-direction:column;gap:12px}
+    .cat-card:hover{border-color:rgba(226,255,79,.2);transform:translateY(-3px)}
+    .cat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(226,255,79,.3),transparent);opacity:0;transition:opacity .3s}
+    .cat-card:hover::before{opacity:1}
+    .cat-icon{width:52px;height:52px;background:rgba(226,255,79,.08);border:1px solid rgba(226,255,79,.15);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:24px;color:var(--acc)}
+    .cat-name{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:.04em;color:var(--white)}
+    .cat-desc{font-size:13px;color:var(--muted);line-height:1.6}
+    .cat-count{font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+    .cat-arrow{position:absolute;bottom:20px;right:20px;color:var(--muted);font-size:20px;transition:all .3s}
+    .cat-card:hover .cat-arrow{color:var(--acc);transform:translateX(4px)}
+
+    /* REVIEWS */
+    .reviews{padding:80px 24px;background:var(--bg2);border-top:1px solid var(--border)}
+    .reviews-in{max-width:1280px;margin:0 auto}
+    .review-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+    .rev-card{border:1px solid var(--border);background:var(--bg);border-radius:10px;padding:24px}
+    .rev-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px}
+    .rev-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:15px;color:var(--white);flex-shrink:0}
+    .rev-name{font-weight:600;font-size:14px;color:var(--white)}
+    .rev-product{font-size:11px;color:var(--muted);margin-top:1px}
+    .rev-stars{color:#fbbf24;font-size:13px;letter-spacing:2px}
+    .rev-verified{font-size:10px;color:var(--acc);font-weight:600;display:flex;align-items:center;gap:4px}
+    .rev-text{font-size:13px;color:var(--muted);line-height:1.7}
+    .rev-result{margin-top:12px;background:rgba(226,255,79,.06);border:1px solid rgba(226,255,79,.12);border-radius:4px;padding:8px 12px;font-size:11px;font-weight:700;color:var(--acc);letter-spacing:.04em}
+
+    /* NEWSLETTER */
+    .newsletter{padding:80px 24px;text-align:center}
+    .nl-box{max-width:560px;margin:0 auto;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:52px 40px;position:relative;overflow:hidden}
+    .nl-box::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:400px;height:400px;background:radial-gradient(circle,rgba(226,255,79,.05) 0%,transparent 70%);pointer-events:none}
+    .nl-icon{font-size:36px;color:var(--acc);margin-bottom:16px}
+    .nl-title{font-family:'Bebas Neue',sans-serif;font-size:36px;letter-spacing:.04em;color:var(--white);margin-bottom:8px}
+    .nl-desc{font-size:14px;color:var(--muted);margin-bottom:24px}
+    .nl-form{display:flex;gap:8px}
+    .nl-input{flex:1;background:var(--bg3);border:1px solid var(--border);color:var(--white);padding:13px 16px;border-radius:100px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;transition:border-color .2s}
+    .nl-input:focus{border-color:rgba(226,255,79,.3)}
+    .nl-input::placeholder{color:var(--muted)}
+    .nl-btn{background:var(--acc);color:#000;font-weight:700;font-size:13px;padding:13px 24px;border-radius:100px;border:none;cursor:pointer;transition:all .2s;white-space:nowrap}
+    .nl-btn:hover{background:var(--acc2)}
+
+    /* FOOTER */
+    footer{border-top:1px solid var(--border);padding:48px 24px 24px}
+    .footer-in{max-width:1280px;margin:0 auto}
+    .footer-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px}
+    .ft-brand-name{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:.1em;color:var(--white);margin-bottom:12px}
+    .ft-brand-name em{color:var(--acc);font-style:normal}
+    .ft-desc{font-size:13px;color:var(--muted);line-height:1.7;max-width:260px}
+    .ft-col-title{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--white);margin-bottom:16px}
+    .ft-links{display:flex;flex-direction:column;gap:10px}
+    .ft-links a{font-size:13px;color:var(--muted);transition:color .2s}
+    .ft-links a:hover{color:var(--white)}
+    .footer-bottom{border-top:1px solid var(--border);padding-top:24px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .fb-copy{font-size:11px;color:var(--muted)}
+    .fb-pay{display:flex;gap:8px}
+    .pay-chip{background:var(--bg3);border:1px solid var(--border);border-radius:4px;padding:4px 10px;font-size:10px;font-weight:700;letter-spacing:.04em;color:var(--muted)}
+
+    @media(max-width:1024px){
+      .hero{grid-template-columns:1fr}
+      .hero-right{height:400px}
+      .hero-left{padding:60px 24px}
+      .prod-grid{grid-template-columns:repeat(2,1fr)}
+      .fp-in{grid-template-columns:1fr;gap:48px}
+      .cat-grid{grid-template-columns:repeat(2,1fr)}
+      .review-grid{grid-template-columns:repeat(2,1fr)}
+      .footer-top{grid-template-columns:1fr 1fr;gap:32px}
+      .nav-center{display:none}
+    }
+    @media(max-width:480px){
+      .prod-grid{grid-template-columns:1fr 1fr}
+      .cat-grid{grid-template-columns:1fr}
+      .review-grid{grid-template-columns:1fr}
+      .nl-form{flex-direction:column}
+      .footer-top{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  🚚 Frete grátis acima de R$ 199 · <a href="#">Ver produtos</a>
+</div>
+
+<nav>
+  <div class="nav-in">
+    <a href="#" class="brand">VIK<em>T</em></a>
+    <ul class="nav-center">
+      <li><a href="#">Proteínas</a></li>
+      <li><a href="#">Pré-Treino</a></li>
+      <li><a href="#">Creatina</a></li>
+      <li><a href="#">Vitaminas</a></li>
+      <li><a href="#">Combos</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="nav-icon"><i class="fi fi-rr-search"></i></div>
+      <div class="nav-icon"><i class="fi fi-rr-user"></i></div>
+      <button class="cart-btn"><i class="fi fi-rr-shopping-cart" style="font-size:15px"></i>Carrinho<div class="cart-count">3</div></button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-badge"><span></span>Novo — VIKT Preworkout 2.0</div>
+    <h1 class="hero-title">PERFORMANCE<br><span class="line2">SEM TETO</span></h1>
+    <p class="hero-subtitle">Formulação com <strong>cafeína anidra 300mg + Beta-Alanina + L-Citrulina</strong> — para treinos que vão além do que você achava possível.</p>
+
+    <div class="hero-product-info">
+      <div class="pi-chip"><i class="fi fi-rs-check-circle"></i>Zero açúcar</div>
+      <div class="pi-chip"><i class="fi fi-rs-check-circle"></i>Sem corante artificial</div>
+      <div class="pi-chip"><i class="fi fi-rs-check-circle"></i>30 doses</div>
+      <div class="pi-chip"><i class="fi fi-rs-check-circle"></i>Anvisa aprovado</div>
+    </div>
+
+    <div class="hero-actions">
+      <button class="btn-buy"><i class="fi fi-rr-shopping-cart"></i>Comprar agora</button>
+      <button class="btn-view">Ver todos os produtos <i class="fi fi-rr-arrow-right"></i></button>
+    </div>
+
+    <div class="hero-trust">
+      <div class="trust-item"><i class="fi fi-rs-check-circle"></i>+48.000 clientes</div>
+      <div class="trust-item"><i class="fi fi-rs-star"></i>4.9 de 5 estrelas</div>
+      <div class="trust-item"><i class="fi fi-rs-shield-check"></i>30 dias de garantia</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="hero-bg-text">VIKT</div>
+    <div class="hero-product-visual">
+      <div class="product-can">
+        <div class="can-brand">VIK<em>T</em></div>
+        <div class="can-product-name">Pre-Workout 2.0</div>
+        <div class="can-line"></div>
+        <div class="can-flavor">FRUIT PUNCH</div>
+        <div class="can-serving">30 DOSES · 300g</div>
+        <div class="can-badge-bottom">NEW FORMULA</div>
+      </div>
+      <div class="product-meta">
+        <div class="product-from">R$ 189,90</div>
+        <div class="product-price"><sub>R$</sub>149<span style="font-size:.5em">,90</span></div>
+        <div class="product-stars">★★★★★<span class="product-reviews">(2.847 avaliações)</span></div>
+      </div>
+    </div>
+    <div class="hero-card-float">
+      <div class="hcf-label">Vendidos hoje</div>
+      <div class="hcf-val">342</div>
+      <div class="hcf-sub">unidades</div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES BAR -->
+<div class="feat-bar">
+  <div class="feat-track">
+    <div class="feat-item"><i class="fi fi-rr-truck-side"></i>Entrega em 24-48h para SP</div>
+    <div class="feat-item"><i class="fi fi-rr-shield-check"></i>Garantia de 30 dias</div>
+    <div class="feat-item"><i class="fi fi-rr-diploma"></i>Fórmula com respaldo científico</div>
+    <div class="feat-item"><i class="fi fi-rr-star"></i>4.9 de satisfação (48k avaliações)</div>
+    <div class="feat-item"><i class="fi fi-rr-lock"></i>Compra 100% segura</div>
+    <div class="feat-item"><i class="fi fi-rr-truck-side"></i>Entrega em 24-48h para SP</div>
+    <div class="feat-item"><i class="fi fi-rr-shield-check"></i>Garantia de 30 dias</div>
+    <div class="feat-item"><i class="fi fi-rr-diploma"></i>Fórmula com respaldo científico</div>
+    <div class="feat-item"><i class="fi fi-rr-star"></i>4.9 de satisfação (48k avaliações)</div>
+    <div class="feat-item"><i class="fi fi-rr-lock"></i>Compra 100% segura</div>
+  </div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="products">
+  <div class="section-tag"><i class="fi fi-rr-fire"></i>Mais vendidos</div>
+  <h2 class="section-title">TOP SELLERS</h2>
+  <p class="section-sub">Os produtos que os atletas mais pedem de volta</p>
+
+  <div class="filter-tabs">
+    <button class="ftab active">Todos</button>
+    <button class="ftab">Pré-Treino</button>
+    <button class="ftab">Proteínas</button>
+    <button class="ftab">Creatina</button>
+    <button class="ftab">Vitaminas</button>
+    <button class="ftab">Combos</button>
+  </div>
+
+  <div class="prod-grid">
+    <div class="prod-card">
+      <div class="prod-thumb">
+        <div class="mini-can" style="width:72px;height:112px"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:var(--acc);border-radius:2px 2px 0 0"></div><div class="mini-can-brand">VIKT</div><div class="mini-can-flavor" style="font-size:8px;color:var(--acc);font-weight:700;letter-spacing:.06em;font-family:'DM Sans',sans-serif">PRE 2.0</div></div>
+        <div class="prod-badge badge-hot">MAIS VENDIDO</div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-category">Pré-Treino</div>
+        <div class="prod-name">VIKT Pre-Workout 2.0</div>
+        <div class="prod-stars">★★★★★ <span>(2.847)</span></div>
+        <div class="prod-flavor-row">
+          <div class="flavor-dot" style="background:#ff6b6b;border-color:#ff6b6b" title="Fruit Punch"></div>
+          <div class="flavor-dot" style="background:#4ade80;border-color:#4ade80" title="Green Apple"></div>
+          <div class="flavor-dot" style="background:#60a5fa;border-color:#60a5fa" title="Blue Raspberry"></div>
+          <div class="flavor-dot" style="background:#f59e0b;border-color:#f59e0b" title="Mango"></div>
+        </div>
+        <div class="prod-price-row">
+          <div><div class="prod-price">R$ 149<span style="font-size:.6em">,90</span> <span class="prod-old-price">R$ 189,90</span></div></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-thumb">
+        <div class="mini-can" style="width:72px;height:112px;background:linear-gradient(160deg,#1a1520,#0d0e10)"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:#a78bfa;border-radius:2px 2px 0 0"></div><div class="mini-can-brand">VIKT</div><div class="mini-can-flavor" style="font-size:8px;color:#a78bfa;font-weight:700;letter-spacing:.06em;font-family:'DM Sans',sans-serif">WHEY 3X</div></div>
+        <div class="prod-badge badge-new">NOVO</div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-category">Proteína Whey</div>
+        <div class="prod-name">VIKT Whey 3X Premium</div>
+        <div class="prod-stars">★★★★★ <span>(1.234)</span></div>
+        <div class="prod-flavor-row">
+          <div class="flavor-dot" style="background:#92400e;border-color:#92400e" title="Chocolate"></div>
+          <div class="flavor-dot" style="background:#fef3c7;border-color:#d97706" title="Baunilha"></div>
+          <div class="flavor-dot" style="background:#fda4af;border-color:#f43f5e" title="Morango"></div>
+        </div>
+        <div class="prod-price-row">
+          <div><div class="prod-price">R$ 219<span style="font-size:.6em">,90</span></div></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-thumb">
+        <div class="mini-can" style="width:72px;height:112px;background:linear-gradient(160deg,#0a1a12,#050907)"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:#4ade80;border-radius:2px 2px 0 0"></div><div class="mini-can-brand">VIKT</div><div class="mini-can-flavor" style="font-size:8px;color:#4ade80;font-weight:700;letter-spacing:.06em;font-family:'DM Sans',sans-serif">CREATINE</div></div>
+        <div class="prod-badge badge-sale">-25%</div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-category">Creatina</div>
+        <div class="prod-name">VIKT Creatine Monohydrate</div>
+        <div class="prod-stars">★★★★★ <span>(3.521)</span></div>
+        <div class="prod-flavor-row">
+          <div class="flavor-dot" style="background:#e5e7eb;border-color:#9ca3af" title="Sem sabor"></div>
+          <div class="flavor-dot" style="background:#bef264;border-color:#84cc16" title="Limão"></div>
+        </div>
+        <div class="prod-price-row">
+          <div><div class="prod-price">R$ 79<span style="font-size:.6em">,90</span> <span class="prod-old-price">R$ 109,90</span></div></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <div class="prod-thumb">
+        <div class="mini-can" style="width:72px;height:112px;background:linear-gradient(160deg,#1a1210,#0d0e10)"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:#f97316;border-radius:2px 2px 0 0"></div><div class="mini-can-brand">VIKT</div><div class="mini-can-flavor" style="font-size:8px;color:#f97316;font-weight:700;letter-spacing:.06em;font-family:'DM Sans',sans-serif">THERMO</div></div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-category">Termogênico</div>
+        <div class="prod-name">VIKT Thermo Burn</div>
+        <div class="prod-stars">★★★★☆ <span>(892)</span></div>
+        <div class="prod-flavor-row">
+          <div class="flavor-dot" style="background:#fed7aa;border-color:#f97316" title="Laranja"></div>
+          <div class="flavor-dot" style="background:#e5e7eb;border-color:#9ca3af" title="Sem sabor"></div>
+        </div>
+        <div class="prod-price-row">
+          <div><div class="prod-price">R$ 99<span style="font-size:.6em">,90</span></div></div>
+          <button class="add-btn">+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED -->
+<section class="featured-product">
+  <div class="fp-in">
+    <div class="fp-visual">
+      <div class="fp-product-box">
+        <div class="fp-can-big">
+          <div class="fp-brand">VIK<em>T</em></div>
+          <div class="fp-product-name-can">Whey 3X Premium</div>
+          <div class="fp-line"></div>
+          <div class="fp-flavor-big">CHOCOLATE</div>
+        </div>
+        <div class="fp-float-stat" style="top:20px;right:20px">
+          <div class="fps-num">26g</div>
+          <div class="fps-label">Proteína/dose</div>
+        </div>
+        <div class="fp-float-stat" style="bottom:20px;left:20px">
+          <div class="fps-num">4.9★</div>
+          <div class="fps-label">1.234 reviews</div>
+        </div>
+      </div>
+    </div>
+    <div class="fp-info">
+      <div class="section-tag"><i class="fi fi-rr-star"></i>Destaque da semana</div>
+      <h2 class="fp-title">VIKT<br><em>WHEY 3X</em><br>PREMIUM</h2>
+      <p class="fp-desc">A proteína de maior qualidade do mercado nacional. Blend de Whey Concentrado, Isolado e Hidrolisado — com 26g de proteína por dose e apenas 2g de gordura.</p>
+
+      <div class="fp-facts">
+        <div class="fp-fact"><div class="fp-fact-num">26g</div><div class="fp-fact-label">Proteína</div></div>
+        <div class="fp-fact"><div class="fp-fact-num">2g</div><div class="fp-fact-label">Gordura</div></div>
+        <div class="fp-fact"><div class="fp-fact-num">30</div><div class="fp-fact-label">Doses</div></div>
+      </div>
+
+      <div class="fp-flavors">
+        <div class="fp-fl-label">Sabor</div>
+        <div class="fp-fl-row">
+          <div class="fp-fl active">Chocolate</div>
+          <div class="fp-fl">Baunilha</div>
+          <div class="fp-fl">Morango</div>
+          <div class="fp-fl">Cookies</div>
+        </div>
+      </div>
+
+      <div class="fp-price-row">
+        <div class="fp-price">R$ 219,90</div>
+        <div class="fp-price-detail">
+          <div class="fp-installment">ou 6x de R$ 39,99</div>
+          <div class="fp-savings">Você economiza R$ 50,00</div>
+        </div>
+      </div>
+      <button class="fp-add-btn"><i class="fi fi-rr-shopping-cart"></i>Adicionar ao carrinho</button>
+    </div>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories">
+  <div class="section-tag"><i class="fi fi-rr-layers"></i>Categorias</div>
+  <h2 class="section-title">EXPLORE POR<br>OBJETIVO</h2>
+  <div class="cat-grid">
+    <div class="cat-card">
+      <div class="cat-icon"><i class="fi fi-rr-bolt"></i></div>
+      <div class="cat-name">Energia & Foco</div>
+      <p class="cat-desc">Pré-treinos e estimulantes para performance máxima. Do treino casual ao atleta de alto rendimento.</p>
+      <div class="cat-count">12 produtos</div>
+      <div class="cat-arrow"><i class="fi fi-rr-arrow-right"></i></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon"><i class="fi fi-rr-gym"></i></div>
+      <div class="cat-name">Força & Hipertrofia</div>
+      <p class="cat-desc">Proteínas, creatinas e aminoácidos formulados para maximizar ganho de massa muscular.</p>
+      <div class="cat-count">18 produtos</div>
+      <div class="cat-arrow"><i class="fi fi-rr-arrow-right"></i></div>
+    </div>
+    <div class="cat-card">
+      <div class="cat-icon"><i class="fi fi-rr-leaf"></i></div>
+      <div class="cat-name">Saúde & Imunidade</div>
+      <p class="cat-desc">Vitaminas, minerais e antioxidantes para manter a saúde em dia e otimizar a recuperação.</p>
+      <div class="cat-count">9 produtos</div>
+      <div class="cat-arrow"><i class="fi fi-rr-arrow-right"></i></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="reviews">
+  <div class="reviews-in">
+    <div class="section-tag"><i class="fi fi-rr-comments"></i>Avaliações</div>
+    <h2 class="section-title">O QUE NOSSOS<br>ATLETAS DIZEM</h2>
+    <div class="review-grid">
+      <div class="rev-card">
+        <div class="rev-header">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="rev-av" style="background:linear-gradient(135deg,#7c3aed,#4c1d95)">GF</div>
+            <div>
+              <div class="rev-name">Gabriel Ferreira</div>
+              <div class="rev-product">VIKT Pre-Workout 2.0 · Fruit Punch</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="rev-stars">★★★★★</div>
+            <div class="rev-verified"><i class="fi fi-rs-check-circle"></i>Compra verificada</div>
+          </div>
+        </div>
+        <p class="rev-text">Já testei uns 8 pré-treinos diferentes e esse é sem dúvida o mais completo. O focus é absurdo, o pump é real e não fico com aquela sensação de agulhadas insuportável. Virou padrão na minha rotina.</p>
+        <div class="rev-result">💪 Aumentei 18kg no supino em 3 meses usando</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-header">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="rev-av" style="background:linear-gradient(135deg,#0369a1,#0c4a6e)">LA</div>
+            <div>
+              <div class="rev-name">Larissa Andrade</div>
+              <div class="rev-product">VIKT Whey 3X Premium · Chocolate</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="rev-stars">★★★★★</div>
+            <div class="rev-verified"><i class="fi fi-rs-check-circle"></i>Compra verificada</div>
+          </div>
+        </div>
+        <p class="rev-text">Sou nutricionista e sou super criteriosa com o que indico. A composição desse whey é honesta — o que está no rótulo é o que tem de verdade. O sabor chocolate é o melhor que já tomei, dissolve na hora.</p>
+        <div class="rev-result">🥇 Indicado para todas as pacientes atletas</div>
+      </div>
+      <div class="rev-card">
+        <div class="rev-header">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div class="rev-av" style="background:linear-gradient(135deg,#059669,#064e3b)">MV</div>
+            <div>
+              <div class="rev-name">Mateus Vieira</div>
+              <div class="rev-product">VIKT Creatine Monohydrate</div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div class="rev-stars">★★★★★</div>
+            <div class="rev-verified"><i class="fi fi-rs-check-circle"></i>Compra verificada</div>
+          </div>
+        </div>
+        <p class="rev-text">Uso creatina há 4 anos e a VIKT foi a que mais senti diferença em força e recuperação. A versão limão é muito boa, mistura bem e não deixa gosto residual. Frete chegou em 2 dias, embalagem perfeita.</p>
+        <div class="rev-result">⚡ 3ª compra consecutiva — não troco</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="nl-box">
+    <div class="nl-icon"><i class="fi fi-rr-bolt"></i></div>
+    <h2 class="nl-title">ACESSO VIP</h2>
+    <p class="nl-desc">Receba novos produtos, lançamentos e cupons exclusivos antes de todo mundo. Sem spam.</p>
+    <div class="nl-form">
+      <input class="nl-input" type="email" placeholder="seu@email.com" />
+      <button class="nl-btn">Entrar →</button>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-in">
+    <div class="footer-top">
+      <div>
+        <div class="ft-brand-name">VIK<em>T</em></div>
+        <p class="ft-desc">Suplementos premium para quem treina de verdade. Fórmulas com respaldo científico, sem atalhos.</p>
+      </div>
+      <div>
+        <div class="ft-col-title">Produtos</div>
+        <div class="ft-links">
+          <a href="#">Pré-Treino</a>
+          <a href="#">Proteínas</a>
+          <a href="#">Creatina</a>
+          <a href="#">Vitaminas</a>
+          <a href="#">Combos</a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-col-title">Suporte</div>
+        <div class="ft-links">
+          <a href="#">Meu pedido</a>
+          <a href="#">Troca e devolução</a>
+          <a href="#">FAQ</a>
+          <a href="#">Contato</a>
+        </div>
+      </div>
+      <div>
+        <div class="ft-col-title">Empresa</div>
+        <div class="ft-links">
+          <a href="#">Sobre a VIKT</a>
+          <a href="#">Seja revendedor</a>
+          <a href="#">Blog</a>
+          <a href="#">Trabalhe conosco</a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="fb-copy">© 2025 VIKT Suplementos · Desenvolvido por <strong style="color:rgba(255,255,255,.25)">Alfa Growth</strong></div>
+      <div class="fb-pay">
+        <div class="pay-chip">VISA</div>
+        <div class="pay-chip">MASTER</div>
+        <div class="pay-chip">PIX</div>
+        <div class="pay-chip">BOLETO</div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.querySelectorAll('.filter-tabs .ftab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    document.querySelectorAll('.ftab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+document.querySelectorAll('.fp-fl').forEach(fl => {
+  fl.addEventListener('click', function() {
+    document.querySelectorAll('.fp-fl').forEach(f => f.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

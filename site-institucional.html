@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vetro Gestão — Consultoria Empresarial Estratégica</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --bg:#f8f7f4;--bg2:#f0ede7;--bg3:#e8e3db;
+      --ink:#1a1714;--ink2:#3d3733;--muted:#8a8278;
+      --gold:#c9a96e;--gold2:#a8864e;
+      --white:#ffffff;
+      --border:rgba(26,23,20,.1);
+    }
+    html{scroll-behavior:smooth}
+    body{background:var(--bg);color:var(--ink);font-family:'Inter',sans-serif;font-size:16px;line-height:1.6;overflow-x:hidden}
+    ::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--gold2)}
+
+    /* NAV */
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 48px;background:rgba(248,247,244,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:box-shadow .3s}
+    nav.scrolled{box-shadow:0 2px 20px rgba(26,23,20,.08)}
+    .nav-in{max-width:1280px;margin:0 auto;height:72px;display:flex;align-items:center;justify-content:space-between}
+    .brand{display:flex;flex-direction:column;text-decoration:none}
+    .brand-name{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:22px;color:var(--ink);letter-spacing:.02em;line-height:1}
+    .brand-sub{font-size:9px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin-top:2px}
+    .nav-links{display:flex;gap:36px;list-style:none}
+    .nav-links a{font-size:13px;font-weight:500;color:var(--muted);text-decoration:none;letter-spacing:.02em;transition:color .2s;position:relative}
+    .nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+    .nav-links a:hover{color:var(--ink)}
+    .nav-links a:hover::after{width:100%}
+    .nav-cta{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--ink);border:1px solid var(--border);padding:10px 24px;text-decoration:none;transition:all .25s}
+    .nav-cta:hover{background:var(--ink);color:var(--white)}
+    .nav-mobile-btn{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .nav-mobile-btn span{display:block;width:22px;height:1.5px;background:var(--ink);transition:all .3s}
+
+    /* HERO */
+    .hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;margin-top:72px}
+    .hero-left{display:flex;flex-direction:column;justify-content:center;padding:80px 64px 80px 80px;position:relative}
+    .hero-left::after{content:'';position:absolute;right:0;top:10%;bottom:10%;width:1px;background:linear-gradient(to bottom,transparent,var(--border),transparent)}
+    .hero-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:36px}
+    .eyebrow-line{width:32px;height:1px;background:var(--gold)}
+    .eyebrow-txt{font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+    .hero-title{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:clamp(44px,4.5vw,68px);line-height:1.08;letter-spacing:-.01em;color:var(--ink);margin-bottom:28px}
+    .hero-title em{font-style:italic;color:var(--gold2)}
+    .hero-desc{font-size:15.5px;color:var(--muted);line-height:1.75;max-width:420px;margin-bottom:44px}
+    .hero-actions{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+    .btn-dark{display:inline-flex;align-items:center;gap:10px;background:var(--ink);color:var(--white);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:15px 30px;text-decoration:none;transition:all .3s}
+    .btn-dark:hover{background:var(--ink2);transform:translateY(-1px)}
+    .btn-ghost{font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;display:flex;align-items:center;gap:6px;transition:color .2s}
+    .btn-ghost svg{transition:transform .2s}
+    .btn-ghost:hover{color:var(--ink)}
+    .btn-ghost:hover svg{transform:translateX(4px)}
+    .hero-badges{display:flex;gap:24px;margin-top:52px;padding-top:36px;border-top:1px solid var(--border)}
+    .hero-badge span:first-child{display:block;font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--ink)}
+    .hero-badge span:last-child{font-size:11px;font-weight:500;letter-spacing:.06em;color:var(--muted);text-transform:uppercase}
+    .hero-right{position:relative;overflow:hidden}
+    .hero-right img{width:100%;height:100%;object-fit:cover;object-position:center}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(135deg,rgba(26,23,20,.4),rgba(26,23,20,.1))}
+    .hero-badge-float{position:absolute;bottom:40px;left:40px;background:rgba(248,247,244,.96);backdrop-filter:blur(12px);padding:20px 24px;border-left:3px solid var(--gold)}
+    .hero-badge-float p:first-child{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--ink);font-style:italic}
+    .hero-badge-float p:last-child{font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-top:4px}
+
+    /* NUMBERS BAR */
+    .numbers-bar{background:var(--ink);padding:52px 80px}
+    .numbers-in{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+    .num-item{padding:0 40px;border-right:1px solid rgba(255,255,255,.08);text-align:center}
+    .num-item:first-child{padding-left:0}
+    .num-item:last-child{border-right:none;padding-right:0}
+    .num-val{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:var(--white);line-height:1}
+    .num-val span{font-size:28px;color:var(--gold);vertical-align:middle}
+    .num-label{font-size:11px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:8px}
+
+    /* SECTION COMMONS */
+    section{padding:100px 80px}
+    .sec-in{max-width:1280px;margin:0 auto}
+    .sec-header{margin-bottom:60px}
+    .sec-eyebrow{display:flex;align-items:center;gap:12px;margin-bottom:20px}
+    .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(32px,3.5vw,50px);font-weight:600;color:var(--ink);line-height:1.1;letter-spacing:-.01em}
+    .sec-title em{font-style:italic;color:var(--gold2)}
+    .sec-sub{font-size:15px;color:var(--muted);line-height:1.75;max-width:560px;margin-top:16px}
+
+    /* ABOUT */
+    .about{background:var(--bg)}
+    .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    .about-img{position:relative}
+    .about-img img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
+    .about-img-tag{position:absolute;bottom:-24px;right:-24px;background:var(--ink);padding:28px 32px;width:200px}
+    .about-img-tag p:first-child{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+    .about-img-tag p:last-child{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:var(--white);line-height:1.3}
+    .about-text p{font-size:16px;color:var(--muted);line-height:1.8;margin-bottom:20px}
+    .about-text p strong{color:var(--ink);font-weight:600}
+    .about-values{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:36px}
+    .about-val{padding:20px;border:1px solid var(--border);background:var(--bg2)}
+    .about-val h4{font-family:'Cormorant Garamond',serif;font-size:17px;font-weight:600;color:var(--ink);margin-bottom:6px}
+    .about-val p{font-size:13px;color:var(--muted);line-height:1.6}
+
+    /* SERVICES */
+    .services{background:var(--bg2)}
+    .svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:60px}
+    .svc-card{background:var(--bg);padding:48px 40px;position:relative;overflow:hidden;transition:background .3s;cursor:default}
+    .svc-card::before{content:'';position:absolute;top:0;left:0;width:2px;height:0;background:var(--gold);transition:height .4s}
+    .svc-card:hover{background:var(--ink)}
+    .svc-card:hover::before{height:100%}
+    .svc-num{font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:700;color:var(--bg3);line-height:1;margin-bottom:24px;transition:color .3s}
+    .svc-card:hover .svc-num{color:rgba(201,169,110,.15)}
+    .svc-icon{width:44px;height:44px;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;margin-bottom:20px;transition:border-color .3s}
+    .svc-card:hover .svc-icon{border-color:rgba(201,169,110,.3)}
+    .svc-icon svg{width:20px;height:20px;stroke:var(--gold)}
+    .svc-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:var(--ink);margin-bottom:12px;transition:color .3s}
+    .svc-card:hover .svc-title{color:var(--white)}
+    .svc-desc{font-size:13.5px;color:var(--muted);line-height:1.7;transition:color .3s}
+    .svc-card:hover .svc-desc{color:rgba(255,255,255,.55)}
+    .svc-link{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gold);text-decoration:none;margin-top:24px;transition:gap .2s}
+    .svc-link:hover{gap:10px}
+
+    /* CASES */
+    .cases{background:var(--bg)}
+    .cases-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:60px}
+    .case-card{position:relative;overflow:hidden;cursor:pointer}
+    .case-card img{width:100%;aspect-ratio:3/2;object-fit:cover;display:block;transition:transform .6s}
+    .case-card:hover img{transform:scale(1.05)}
+    .case-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(26,23,20,.88),transparent 50%);display:flex;flex-direction:column;justify-content:flex-end;padding:28px 24px}
+    .case-tag{font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
+    .case-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:600;color:var(--white);line-height:1.2;margin-bottom:6px}
+    .case-result{font-size:12px;color:rgba(255,255,255,.6)}
+    .case-arrow{position:absolute;top:20px;right:20px;width:36px;height:36px;background:var(--gold);display:flex;align-items:center;justify-content:center;opacity:0;transform:translateY(-8px);transition:all .3s}
+    .case-card:hover .case-arrow{opacity:1;transform:translateY(0)}
+
+    /* TEAM */
+    .team{background:var(--bg2);padding:100px 80px}
+    .team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:60px}
+    .team-card{background:var(--bg);overflow:hidden}
+    .team-card img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block;filter:grayscale(20%);transition:filter .4s}
+    .team-card:hover img{filter:grayscale(0)}
+    .team-info{padding:20px 20px 24px}
+    .team-name{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:600;color:var(--ink)}
+    .team-role{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-top:4px}
+    .team-bio{font-size:13px;color:var(--muted);line-height:1.6;margin-top:12px}
+
+    /* CONTACT */
+    .contact{background:var(--ink)}
+    .contact-in{max-width:1280px;margin:0 auto}
+    .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;padding:100px 80px}
+    .contact-left .sec-eyebrow .eyebrow-txt{color:rgba(255,255,255,.4)}
+    .contact-left .eyebrow-line{background:var(--gold)}
+    .contact-left .sec-title{color:var(--white)}
+    .contact-left .sec-sub{color:rgba(255,255,255,.5)}
+    .contact-detail{display:flex;flex-direction:column;gap:20px;margin-top:40px}
+    .contact-item{display:flex;align-items:flex-start;gap:16px;padding:20px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+    .contact-item:last-child{border-bottom:none}
+    .contact-icon{width:40px;height:40px;border:1px solid rgba(201,169,110,.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .contact-icon svg{width:18px;height:18px;stroke:var(--gold)}
+    .contact-item-text p:first-child{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:4px}
+    .contact-item-text p:last-child{font-size:15px;color:rgba(255,255,255,.8)}
+    .contact-form{background:var(--bg);padding:48px 40px}
+    .form-title{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--ink);margin-bottom:32px}
+    .form-group{margin-bottom:20px}
+    .form-group label{display:block;font-size:11px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+    .form-group input,.form-group select,.form-group textarea{width:100%;background:var(--bg2);border:1px solid var(--border);padding:13px 16px;font-size:14px;color:var(--ink);font-family:'Inter',sans-serif;outline:none;transition:border-color .2s;resize:none}
+    .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--gold)}
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .form-submit{width:100%;background:var(--ink);color:var(--white);border:none;padding:16px;font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .3s;display:flex;align-items:center;justify-content:center;gap:10px;font-family:'Inter',sans-serif;margin-top:8px}
+    .form-submit:hover{background:var(--ink2)}
+    .form-success{display:none;text-align:center;padding:40px 20px}
+    .form-success svg{width:48px;height:48px;stroke:var(--gold);margin-bottom:16px}
+    .form-success h3{font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:600;color:var(--ink);margin-bottom:8px}
+    .form-success p{font-size:14px;color:var(--muted)}
+
+    /* PARTNERS / LOGOS */
+    .partners{background:var(--bg2);padding:60px 80px;border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .partners-in{max-width:1280px;margin:0 auto;display:flex;align-items:center;gap:60px;flex-wrap:wrap;justify-content:center}
+    .partners-label{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+    .partners-logos{display:flex;gap:48px;align-items:center;flex-wrap:wrap;justify-content:center}
+    .partner-logo{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:700;color:var(--border);letter-spacing:.06em;text-transform:uppercase;filter:grayscale(1);opacity:.4;transition:opacity .2s;cursor:default}
+    .partner-logo:hover{opacity:.7}
+
+    /* METHODOLOGY */
+    .method{background:var(--bg);padding:100px 80px}
+    .method-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:60px;position:relative}
+    .method-steps::before{content:'';position:absolute;top:32px;left:10%;right:10%;height:1px;background:var(--border)}
+    .method-step{text-align:center;padding:0 20px;position:relative}
+    .step-num{width:64px;height:64px;border:1px solid var(--border);background:var(--bg);display:flex;align-items:center;justify-content:center;margin:0 auto 28px;font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:700;color:var(--ink);position:relative;z-index:1}
+    .step-num.active{background:var(--ink);border-color:var(--ink);color:var(--white)}
+    .step-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:600;color:var(--ink);margin-bottom:10px}
+    .step-desc{font-size:13px;color:var(--muted);line-height:1.65}
+
+    /* FOOTER */
+    footer{background:var(--ink);padding:60px 80px 36px}
+    .footer-in{max-width:1280px;margin:0 auto}
+    .footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:60px;margin-bottom:60px}
+    .footer-brand .brand-name{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:24px;color:var(--white)}
+    .footer-brand .brand-sub{color:rgba(255,255,255,.3)}
+    .footer-desc{font-size:13.5px;color:rgba(255,255,255,.4);line-height:1.75;margin-top:16px;max-width:260px}
+    .footer-col h4{font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:20px}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:10px}
+    .footer-col ul li a{font-size:13.5px;color:rgba(255,255,255,.5);text-decoration:none;transition:color .2s}
+    .footer-col ul li a:hover{color:var(--gold)}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:28px;display:flex;justify-content:space-between;align-items:center}
+    .footer-copy{font-size:12px;color:rgba(255,255,255,.25)}
+    .footer-legal{display:flex;gap:24px}
+    .footer-legal a{font-size:12px;color:rgba(255,255,255,.25);text-decoration:none;transition:color .2s}
+    .footer-legal a:hover{color:rgba(255,255,255,.5)}
+
+    /* ANIMATIONS */
+    .reveal{opacity:0;transform:translateY(32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal.vis{opacity:1;transform:none}
+    .reveal-l{opacity:0;transform:translateX(-32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal-l.vis{opacity:1;transform:none}
+    .reveal-r{opacity:0;transform:translateX(32px);transition:opacity .7s ease,transform .7s ease}
+    .reveal-r.vis{opacity:1;transform:none}
+
+    /* MOBILE */
+    @media(max-width:1024px){
+      section,footer,.contact-grid,.team,.partners,.method,.numbers-bar{padding-left:40px;padding-right:40px}
+      nav{padding:0 40px}
+      .hero-left{padding:60px 40px 60px 40px}
+      .hero-title{font-size:42px}
+      .svc-grid{grid-template-columns:1fr 1fr}
+      .cases-grid{grid-template-columns:1fr 1fr}
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+      .footer-top{grid-template-columns:1fr 1fr;gap:40px}
+      .method-steps{grid-template-columns:repeat(2,1fr);gap:40px}
+      .method-steps::before{display:none}
+    }
+    @media(max-width:768px){
+      section,footer,.contact-grid,.team,.partners,.method,.numbers-bar{padding-left:24px;padding-right:24px}
+      nav{padding:0 24px}
+      .nav-links,.nav-cta{display:none}
+      .nav-mobile-btn{display:flex}
+      .hero{grid-template-columns:1fr;min-height:auto}
+      .hero-right{height:56vw;min-height:280px}
+      .hero-left{padding:48px 24px;order:-1}
+      .hero-left::after{display:none}
+      .hero-badges{gap:20px}
+      .numbers-bar{padding:40px 24px}
+      .numbers-in{grid-template-columns:repeat(2,1fr);gap:32px}
+      .num-item{border-right:none;padding:0}
+      .about-grid,.contact-grid{grid-template-columns:1fr}
+      .about-img-tag{right:0;bottom:0}
+      .svc-grid,.cases-grid{grid-template-columns:1fr}
+      .team-grid{grid-template-columns:repeat(2,1fr)}
+      .method-steps{grid-template-columns:1fr;gap:32px}
+      .footer-top{grid-template-columns:1fr}
+      .form-row{grid-template-columns:1fr}
+      .footer-bottom{flex-direction:column;gap:16px;text-align:center}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-in">
+    <a href="#" class="brand">
+      <span class="brand-name">Vetro</span>
+      <span class="brand-sub">Gestão Estratégica</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#sobre">Sobre</a></li>
+      <li><a href="#servicos">Serviços</a></li>
+      <li><a href="#casos">Casos</a></li>
+      <li><a href="#equipe">Equipe</a></li>
+      <li><a href="#contato">Contato</a></li>
+    </ul>
+    <a href="#contato" class="nav-cta">Agendar diagnóstico</a>
+    <button class="nav-mobile-btn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-line"></span>
+      <span class="eyebrow-txt">Consultoria Empresarial · Desde 2009</span>
+    </div>
+    <h1 class="hero-title">
+      Clareza estratégica<br>
+      para empresas que<br>
+      querem <em>crescer de verdade.</em>
+    </h1>
+    <p class="hero-desc">
+      Ajudamos líderes a tomar decisões mais rápidas,
+      estruturar suas operações e construir organizações
+      preparadas para o próximo nível de crescimento.
+    </p>
+    <div class="hero-actions">
+      <a href="#contato" class="btn-dark">
+        Agendar diagnóstico gratuito
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+      <a href="#casos" class="btn-ghost">
+        Ver casos
+        <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+    <div class="hero-badges">
+      <div class="hero-badge">
+        <span class="num-count" data-target="200">0</span>
+        <span>Empresas atendidas</span>
+      </div>
+      <div class="hero-badge">
+        <span class="num-count" data-target="15">0</span>
+        <span>Anos de experiência</span>
+      </div>
+      <div class="hero-badge">
+        <span class="num-count" data-target="94">0</span>
+        <span>% NPS médio</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&auto=format&fit=crop&q=80" alt="Escritório moderno">
+    <div class="hero-overlay"></div>
+    <div class="hero-badge-float">
+      <p>"Resultados que mudam empresas"</p>
+      <p>Depoimento — CEO, Grupo Almada</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNERS -->
+<div class="partners">
+  <div class="partners-in">
+    <span class="partners-label">Empresas atendidas</span>
+    <div class="partners-logos">
+      <span class="partner-logo">Almada</span>
+      <span class="partner-logo">Fortline</span>
+      <span class="partner-logo">Capstone</span>
+      <span class="partner-logo">Norterê</span>
+      <span class="partner-logo">Riviera</span>
+      <span class="partner-logo">Ômega</span>
+    </div>
+  </div>
+</div>
+
+<!-- NUMBERS BAR -->
+<div class="numbers-bar">
+  <div class="numbers-in">
+    <div class="num-item">
+      <div class="num-val"><span class="count" data-target="3">0</span><span>B+</span></div>
+      <div class="num-label">Em receita gerada para clientes</div>
+    </div>
+    <div class="num-item">
+      <div class="num-val"><span class="count" data-target="200">0</span><span>+</span></div>
+      <div class="num-label">Projetos concluídos</div>
+    </div>
+    <div class="num-item">
+      <div class="num-val"><span class="count" data-target="18">0</span><span></span></div>
+      <div class="num-label">Setores atendidos</div>
+    </div>
+    <div class="num-item">
+      <div class="num-val"><span class="count" data-target="94">0</span><span>%</span></div>
+      <div class="num-label">NPS médio de satisfação</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="sobre">
+  <div class="sec-in">
+    <div class="about-grid">
+      <div class="about-img reveal-l">
+        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=700&auto=format&fit=crop&q=80" alt="Sócio-fundador" />
+        <div class="about-img-tag">
+          <p>Fundação</p>
+          <p>São Paulo, Brasil<br>2009</p>
+        </div>
+      </div>
+      <div class="about-text reveal-r">
+        <div class="sec-eyebrow">
+          <span class="eyebrow-line"></span>
+          <span class="eyebrow-txt">Quem somos</span>
+        </div>
+        <h2 class="sec-title">Uma firma boutique.<br><em>Com impacto real.</em></h2>
+        <p style="margin-top:24px">A Vetro Gestão foi fundada com um propósito claro: oferecer consultoria estratégica de alto nível para empresas brasileiras que precisam crescer de forma estruturada.</p>
+        <p>Diferente das grandes consultorias, trabalhamos em projetos selecionados — o que nos permite dedicar atenção real a cada cliente. Nossos sócios participam ativamente de cada engajamento.</p>
+        <p>Atuamos nos segmentos de <strong>estratégia corporativa, gestão operacional, estruturação financeira e governança</strong>, sempre com foco em resultados tangíveis e duradouros.</p>
+        <div class="about-values">
+          <div class="about-val">
+            <h4>Rigor analítico</h4>
+            <p>Decisões baseadas em dados, não em feeling.</p>
+          </div>
+          <div class="about-val">
+            <h4>Comprometimento</h4>
+            <p>Tratamos seu negócio como se fosse nosso.</p>
+          </div>
+          <div class="about-val">
+            <h4>Praticidade</h4>
+            <p>Estratégias que funcionam no mundo real.</p>
+          </div>
+          <div class="about-val">
+            <h4>Confidencialidade</h4>
+            <p>Total discrição em todos os engajamentos.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="services" id="servicos">
+  <div class="sec-in">
+    <div class="sec-header">
+      <div class="sec-eyebrow reveal">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-txt">O que fazemos</span>
+      </div>
+      <h2 class="sec-title reveal">Áreas de <em>atuação</em></h2>
+      <p class="sec-sub reveal">Cada serviço é desenhado para resolver um problema real de negócio — com método, velocidade e entrega mensurável.</p>
+    </div>
+  </div>
+  <div class="svc-grid">
+    <div class="svc-card reveal">
+      <div class="svc-num">01</div>
+      <div class="svc-icon">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0l-1 3m8.5-3l1 3m0 0l.5 1.5m-.5-1.5h-9.5m0 0l-.5 1.5"/></svg>
+      </div>
+      <h3 class="svc-title">Estratégia Corporativa</h3>
+      <p class="svc-desc">Revisão e construção do plano estratégico de longo prazo, com definição de metas, alocação de recursos e ciclos de revisão trimestrais.</p>
+      <a href="#contato" class="svc-link">Saiba mais →</a>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">02</div>
+      <div class="svc-icon">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"/></svg>
+      </div>
+      <h3 class="svc-title">Reestruturação Operacional</h3>
+      <p class="svc-desc">Diagnóstico e redesenho de processos críticos para eliminar gargalos, reduzir custos e aumentar a capacidade de entrega sem aumentar headcount.</p>
+      <a href="#contato" class="svc-link">Saiba mais →</a>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">03</div>
+      <div class="svc-icon">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"/></svg>
+      </div>
+      <h3 class="svc-title">Estruturação Financeira</h3>
+      <p class="svc-desc">Modelagem financeira, planejamento de caixa, reestruturação de dívidas e preparação de empresas para captação de capital ou fusões.</p>
+      <a href="#contato" class="svc-link">Saiba mais →</a>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">04</div>
+      <div class="svc-icon">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"/></svg>
+      </div>
+      <h3 class="svc-title">Governança e Conselho</h3>
+      <p class="svc-desc">Implantação de modelos de governança corporativa, estruturação de conselhos consultivos e preparação de empresas familiares para profissionalização.</p>
+      <a href="#contato" class="svc-link">Saiba mais →</a>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">05</div>
+      <div class="svc-icon">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z"/></svg>
+      </div>
+      <h3 class="svc-title">Transformação Digital</h3>
+      <p class="svc-desc">Diagnóstico de maturidade digital, seleção e implantação de tecnologias de gestão (ERP, CRM, BI) e gestão da mudança organizacional.</p>
+      <a href="#contato" class="svc-link">Saiba mais →</a>
+    </div>
+    <div class="svc-card reveal">
+      <div class="svc-num">06</div>
+      <div class="svc-icon">
+        <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+      </div>
+      <h3 class="svc-title">Expansão e M&A</h3>
+      <p class="svc-desc">Identificação de alvos, due diligence estratégica, estruturação de deals e integração pós-fusão para empresas em processo de expansão inorgânica.</p>
+      <a href="#contato" class="svc-link">Saiba mais →</a>
+    </div>
+  </div>
+</section>
+
+<!-- METHODOLOGY -->
+<section class="method" id="metodologia">
+  <div class="sec-in">
+    <div class="sec-header" style="text-align:center;margin:0 auto 60px">
+      <div class="sec-eyebrow reveal" style="justify-content:center">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-txt">Como trabalhamos</span>
+        <span class="eyebrow-line"></span>
+      </div>
+      <h2 class="sec-title reveal">Nossa metodologia</h2>
+      <p class="sec-sub reveal" style="margin:16px auto 0">Um processo testado em mais de 200 projetos — rígido onde precisa ser, flexível onde faz sentido.</p>
+    </div>
+    <div class="method-steps">
+      <div class="method-step reveal">
+        <div class="step-num active">01</div>
+        <h3 class="step-title">Diagnóstico</h3>
+        <p class="step-desc">Entrevistas com líderes-chave, análise de dados e mapeamento do estado atual da empresa em 2 semanas.</p>
+      </div>
+      <div class="method-step reveal">
+        <div class="step-num">02</div>
+        <h3 class="step-title">Desenho</h3>
+        <p class="step-desc">Co-criação de soluções com o time de gestão. Sem receitas prontas — cada plano é feito para o seu contexto.</p>
+      </div>
+      <div class="method-step reveal">
+        <div class="step-num">03</div>
+        <h3 class="step-title">Implementação</h3>
+        <p class="step-desc">Execução estruturada com sprints quinzenais, ritmo de gestão e acompanhamento de KPIs em tempo real.</p>
+      </div>
+      <div class="method-step reveal">
+        <div class="step-num">04</div>
+        <h3 class="step-title">Consolidação</h3>
+        <p class="step-desc">Transferência de conhecimento, capacitação do time interno e monitoramento pós-projeto por 90 dias.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASES -->
+<section class="cases" id="casos">
+  <div class="sec-in">
+    <div class="sec-header">
+      <div class="sec-eyebrow reveal">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-txt">Casos de sucesso</span>
+      </div>
+      <h2 class="sec-title reveal">Resultados que <em>falam por si.</em></h2>
+      <p class="sec-sub reveal">Exemplos reais de impacto gerado em diferentes setores e estágios de maturidade empresarial.</p>
+    </div>
+  </div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 0 0 0">
+    <div class="cases-grid">
+      <div class="case-card reveal">
+        <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&auto=format&fit=crop&q=80" alt="Caso 1" />
+        <div class="case-overlay">
+          <span class="case-tag">Estratégia Corporativa</span>
+          <h3 class="case-name">Grupo Almada — Construção Civil</h3>
+          <p class="case-result">+R$180M em receita incremental em 18 meses</p>
+        </div>
+        <div class="case-arrow">
+          <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=700&auto=format&fit=crop&q=80" alt="Caso 2" />
+        <div class="case-overlay">
+          <span class="case-tag">Reestruturação Operacional</span>
+          <h3 class="case-name">Fortline Logística</h3>
+          <p class="case-result">-34% em custos operacionais sem corte de equipe</p>
+        </div>
+        <div class="case-arrow">
+          <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+      <div class="case-card reveal">
+        <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=700&auto=format&fit=crop&q=80" alt="Caso 3" />
+        <div class="case-overlay">
+          <span class="case-tag">Governança Corporativa</span>
+          <h3 class="case-name">Riviera Alimentos — Família para Profissional</h3>
+          <p class="case-result">Conselho estruturado e captação de R$60M concluída</p>
+        </div>
+        <div class="case-arrow">
+          <svg width="14" height="14" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="team" id="equipe">
+  <div class="sec-in" style="max-width:1280px;margin:0 auto">
+    <div class="sec-header">
+      <div class="sec-eyebrow reveal">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-txt">Nossa equipe</span>
+      </div>
+      <h2 class="sec-title reveal">Sócios e <em>especialistas</em></h2>
+      <p class="sec-sub reveal">Profissionais com passagem por grandes consultorias, empresas líderes de mercado e MBAs nas melhores escolas do mundo.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card reveal">
+        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=80" alt="Ricardo Vettore" />
+        <div class="team-info">
+          <h3 class="team-name">Ricardo Vettore</h3>
+          <p class="team-role">Sócio-Fundador</p>
+          <p class="team-bio">Ex-McKinsey. MBA INSEAD. 20 anos de experiência em estratégia para empresas do Fortune 500 e líderes brasileiros.</p>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=80" alt="Marina Lacerda" />
+        <div class="team-info">
+          <h3 class="team-name">Marina Lacerda</h3>
+          <p class="team-role">Sócia — Operações</p>
+          <p class="team-bio">Ex-BCG. Engenheira de Produção pela Poli-USP. Liderou mais de 40 projetos de reestruturação operacional no Brasil e América Latina.</p>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=80" alt="André Sampaio" />
+        <div class="team-info">
+          <h3 class="team-name">André Sampaio</h3>
+          <p class="team-role">Sócio — M&A e Finanças</p>
+          <p class="team-bio">Ex-Itaú BBA. Mestre em Finanças pela FGV-EAESP. Mais de R$2B em transações estruturadas ao longo da carreira.</p>
+        </div>
+      </div>
+      <div class="team-card reveal">
+        <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=500&auto=format&fit=crop&q=80" alt="Camila Rios" />
+        <div class="team-info">
+          <h3 class="team-name">Camila Rios</h3>
+          <p class="team-role">Diretora — Transformação Digital</p>
+          <p class="team-bio">Ex-Accenture Digital. Especialista em tecnologias de gestão e change management para médias e grandes empresas.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact" id="contato">
+  <div class="contact-grid">
+    <div class="contact-left reveal-l">
+      <div class="sec-eyebrow">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-txt">Vamos conversar</span>
+      </div>
+      <h2 class="sec-title" style="color:var(--white)">Seu próximo passo<br>começa com um <em>diagnóstico.</em></h2>
+      <p class="sec-sub">Oferecemos uma sessão de diagnóstico gratuita de 60 minutos para entender os desafios do seu negócio — sem compromisso, sem pitch.</p>
+      <div class="contact-detail">
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <p>Escritório</p>
+            <p>Av. Faria Lima, 4300 — Itaim Bibi, São Paulo, SP</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <p>Telefone</p>
+            <p>+55 (11) 3042-8800</p>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-icon">
+            <svg fill="none" viewBox="0 0 24 24" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"/></svg>
+          </div>
+          <div class="contact-item-text">
+            <p>E-mail</p>
+            <p>contato@vetrogestao.com.br</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-form reveal-r" id="contact-form-wrap">
+      <h3 class="form-title">Agendar diagnóstico gratuito</h3>
+      <form id="contact-form">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome</label>
+            <input type="text" placeholder="Seu nome" required />
+          </div>
+          <div class="form-group">
+            <label>Sobrenome</label>
+            <input type="text" placeholder="Seu sobrenome" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>E-mail corporativo</label>
+          <input type="email" placeholder="voce@empresa.com.br" required />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Empresa</label>
+            <input type="text" placeholder="Nome da empresa" />
+          </div>
+          <div class="form-group">
+            <label>Cargo</label>
+            <input type="text" placeholder="CEO, CFO, Sócio..." />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Área de interesse</label>
+          <select>
+            <option value="" disabled selected>Selecione um serviço</option>
+            <option>Estratégia Corporativa</option>
+            <option>Reestruturação Operacional</option>
+            <option>Estruturação Financeira</option>
+            <option>Governança e Conselho</option>
+            <option>Transformação Digital</option>
+            <option>Expansão e M&A</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Contexto / Desafio principal</label>
+          <textarea rows="3" placeholder="Descreva brevemente o desafio que sua empresa enfrenta hoje..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">
+          Solicitar diagnóstico
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </form>
+      <div class="form-success" id="form-success">
+        <svg fill="none" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <h3>Solicitação recebida</h3>
+        <p>Entraremos em contato em até 24h úteis para confirmar o horário do seu diagnóstico.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-in">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="brand-name">Vetro</div>
+        <div class="brand-sub">Gestão Estratégica</div>
+        <p class="footer-desc">Consultoria boutique especializada em estratégia, operações e M&A para empresas brasileiras com ambição de crescimento.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Serviços</h4>
+        <ul>
+          <li><a href="#">Estratégia Corporativa</a></li>
+          <li><a href="#">Reestruturação Operacional</a></li>
+          <li><a href="#">Estruturação Financeira</a></li>
+          <li><a href="#">Governança</a></li>
+          <li><a href="#">M&A</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#">Sobre a Vetro</a></li>
+          <li><a href="#">Nossa equipe</a></li>
+          <li><a href="#">Casos de sucesso</a></li>
+          <li><a href="#">Insights</a></li>
+          <li><a href="#">Carreiras</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="#">São Paulo — Faria Lima</a></li>
+          <li><a href="#">Rio de Janeiro — Leblon</a></li>
+          <li><a href="#">contato@vetrogestao.com.br</a></li>
+          <li><a href="#">+55 (11) 3042-8800</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2024 Vetro Gestão Estratégica. Todos os direitos reservados.</p>
+      <div class="footer-legal">
+        <a href="#">Política de privacidade</a>
+        <a href="#">Termos de uso</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV scroll
+const nav = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 40);
+});
+
+// Reveal on scroll
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('vis'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el => observer.observe(el));
+
+// Counter animation
+function animateCounter(el, target, suffix='') {
+  const duration = 1800;
+  const start = performance.now();
+  const update = now => {
+    const p = Math.min((now - start) / duration, 1);
+    const ease = 1 - Math.pow(1 - p, 3);
+    el.textContent = Math.floor(ease * target) + suffix;
+    if (p < 1) requestAnimationFrame(update);
+    else el.textContent = target + suffix;
+  };
+  requestAnimationFrame(update);
+}
+
+const counterObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (!e.isIntersecting) return;
+    // Numbers bar
+    e.target.querySelectorAll('.count').forEach(el => {
+      animateCounter(el, parseInt(el.dataset.target));
+    });
+    // Hero badges
+    e.target.querySelectorAll('.num-count').forEach(el => {
+      const target = parseInt(el.dataset.target);
+      const suffix = el.dataset.target >= 100 ? '' : '';
+      animateCounter(el, target);
+    });
+    counterObs.unobserve(e.target);
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.numbers-bar,.hero-badges').forEach(el => counterObs.observe(el));
+
+// Form submit
+document.getElementById('contact-form').addEventListener('submit', e => {
+  e.preventDefault();
+  document.getElementById('contact-form').style.display = 'none';
+  document.getElementById('form-success').style.display = 'block';
+});
+
+// Stagger service cards
+document.querySelectorAll('.svc-card').forEach((card, i) => {
+  card.style.transitionDelay = (i * 80) + 'ms';
+});
+document.querySelectorAll('.case-card').forEach((card, i) => {
+  card.style.transitionDelay = (i * 100) + 'ms';
+});
+document.querySelectorAll('.team-card').forEach((card, i) => {
+  card.style.transitionDelay = (i * 80) + 'ms';
+});
+</script>
+</body>
+</html>
